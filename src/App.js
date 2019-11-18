@@ -1,24 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import MyComponent from './Regular';
+// import MyComponent from './Pure';
+// import MyComponent from './Func';
+// import MyComponent from './Memo';
+
 function App() {
+  const [count, setCount] = React.useState(0);
+  const [items, setItems] = React.useState([]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <span>{count}</span>
+      <button onClick={() => {
+        setCount(count => count + 1);
+        setItems(items => {
+          const result = [...items];
+          
+          for (let i = 0; i <= count * 100; i++) {
+            result.push({
+              item: i,
+              value: `test ${i}`
+            });
+          }
+
+          return result;
+        });
+      }
+      }>Count</button>
+      <MyComponent title={'Title'} data={{ items }} />
+
     </div>
   );
 }
